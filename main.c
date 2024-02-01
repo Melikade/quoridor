@@ -1,4 +1,3 @@
-#include "global declarations.h"
 #include "board.h"
 #include "DFS.h"
 #include "build wall.h"
