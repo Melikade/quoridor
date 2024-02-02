@@ -7,33 +7,30 @@
 #include "save and load.h"
 
 // curse or gift function
-void CurseOrGift(int x1, int x2, int y1, int y2, int count, int nodes, int *countblock, int *countwall1, int *counwall2) {
+void
+CurseOrGift(int x1, int x2, int y1, int y2, int count, int nodes, int *countblock, int *countwall1, int *counwall2) {
     srand(time(NULL));
-    int random=rand() % 5;
+    int random = rand() % 5;
     printf("A box is opening...\n");
     if (random == 0) {
         printf("You've gotten a curse!\nAll of the walls will be removed!\n");
         ClearAllWalls(x1, x2, y1, y2, count, nodes);
-    }
-    else if (random == 1) {
+    } else if (random == 1) {
         // check if run error
         printf("You've gotten a curse!\nThe capacity of your walls has been reduced!\n");
         DecreaseCountWall(countwall1);
-        printf("You have only %d walls left!\n",*countwall1);
-    }
-    else if (random == 2) {
+        printf("You have only %d walls left!\n", *countwall1);
+    } else if (random == 2) {
         BlockPlayer(countblock);
-        printf("You've gotten a curse!\nYou cannot play for %d round!\n",*countblock);
-    }
-    else if (random == 3) {
+        printf("You've gotten a curse!\nYou cannot play for %d round!\n", *countblock);
+    } else if (random == 3) {
         printf("You've gotten a gift!\nThe capacity of your walls has been increased!\n");
         IncreaseCountWall(countwall1);
-        printf("You now have %d walls!\n",*countwall1);
-    }
-    else {
+        printf("You now have %d walls!\n", *countwall1);
+    } else {
         printf("You've gotten a gift!\nThe capacity of you and your opponents walls have been changed!\n");
         IncreaseAndDecreaseCountWall(countwall1, counwall2);
-        printf("You now have %d walls and your opponent has %d walls!\n",*countwall1,*counwall2);
+        printf("You now have %d walls and your opponent has %d walls!\n", *countwall1, *counwall2);
     }
 }
 
@@ -42,7 +39,7 @@ void CurseOrGift(int x1, int x2, int y1, int y2, int count, int nodes, int *coun
 void
 HumanPlayer(int count, char name1[], int LengthName1, char name2[], int LengthName2, int countwall1, int countwall2) {
     int x1, y1, x2, y2, sww1, sww2;
-    int countblock1=0, countblock2=0;
+    int countblock1 = 0, countblock2 = 0;
     char enter[5];
     char commandstr[100];
     int xwall1, ywall1, xwall2, ywall2;
@@ -70,7 +67,7 @@ HumanPlayer(int count, char name1[], int LengthName1, char name2[], int LengthNa
     //Updating the board
     PrintBoard(count);
     while (1) {
-        if(countblock1==0)
+        if (countblock1 == 0)
             sww1 = 1;
         else {
             sww1 = 0;
@@ -124,20 +121,21 @@ HumanPlayer(int count, char name1[], int LengthName1, char name2[], int LengthNa
             else {
                 printf("incorrect input, please try Again !\n");
             }
-            if(sww1==0)
+            if (sww1 == 0)
                 system("cls");
             //opening a random gift or curse box
-            if(sww1==0 && x1 != 2 * count - 1){
-                CurseOrGift(x1,x2,y1,y2,count,nodes,&countblock1,&countwall1,&countwall2);
+            if (sww1 == 0 && x1 != 2 * count - 1) {
+                CurseOrGift(x1, x2, y1, y2, count, nodes, &countblock1, &countwall1, &countwall2);
             }
-            if(sww1==0) {
+            if (sww1 == 0) {
                 PrintBoard(count);
                 //asking if the player wants to save the game
                 while (1) {
                     printf("do you want to save the game (1) or do you want to continue (2)? \n");
                     gets(CommandSave);
                     if (strcmp(CommandSave, "1") == 0) {
-                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 2, countblock1, countblock2);
+                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 2,
+                                      countblock1, countblock2);
                         break;
                     } else if (strcmp(CommandSave, "2") == 0) {
                         break;
@@ -153,7 +151,7 @@ HumanPlayer(int count, char name1[], int LengthName1, char name2[], int LengthNa
         }
         system("cls");
         PrintBoard(count);
-        if(countblock2==0)
+        if (countblock2 == 0)
             sww2 = 1;
         else {
             sww2 = 0;
@@ -206,20 +204,21 @@ HumanPlayer(int count, char name1[], int LengthName1, char name2[], int LengthNa
             else {
                 printf("incorrect input, please try Again !\n");
             }
-            if(sww2==0)
+            if (sww2 == 0)
                 system("cls");
             //opening a random gift or curse box
-            if(sww2==0 && x2 != 1){
-                CurseOrGift(x1,x2,y1,y2,count,nodes,&countblock2,&countwall2,&countwall1);
+            if (sww2 == 0 && x2 != 1) {
+                CurseOrGift(x1, x2, y1, y2, count, nodes, &countblock2, &countwall2, &countwall1);
             }
-            if(sww2==0){
+            if (sww2 == 0) {
                 PrintBoard(count);
                 //asking if the player wants to save the game
                 while (1) {
                     printf("do you want to save the game (1) or do you want to continue (2)? \n");
                     gets(CommandSave);
                     if (strcmp(CommandSave, "1") == 0) {
-                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 1, countblock1, countblock2);
+                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 1,
+                                      countblock1, countblock2);
                         break;
                     } else if (strcmp(CommandSave, "2") == 0) {
                         break;
@@ -249,7 +248,7 @@ void ComputerPlayer(int count, char name[], int LengthName, int countwall1, int 
     char typewall2;
     char CommandSave[50];
     int sww1, sww2;
-    int countblock1=0, countblock2=0;
+    int countblock1 = 0, countblock2 = 0;
 
     // placing the pieces at the beginning
     board[1][(count / 2) * 5 + 3] = pieces1;
@@ -271,7 +270,7 @@ void ComputerPlayer(int count, char name[], int LengthName, int countwall1, int 
     //Updating the board
     PrintBoard(count);
     while (1) {
-        if(countblock1==0)
+        if (countblock1 == 0)
             sww1 = 1;
         else {
             sww1 = 0;
@@ -325,20 +324,21 @@ void ComputerPlayer(int count, char name[], int LengthName, int countwall1, int 
             else {
                 printf("incorrect input, please try Again !\n");
             }
-            if(sww1==0)
+            if (sww1 == 0)
                 system("cls");
             // opening a random gift or curse box
-            if (sww1==0 && x1 != 2 * count - 1 ){
-                CurseOrGift(x1,x2,y1,y2,count,nodes,&countblock1,&countwall1,&countwall2);
+            if (sww1 == 0 && x1 != 2 * count - 1) {
+                CurseOrGift(x1, x2, y1, y2, count, nodes, &countblock1, &countwall1, &countwall2);
             }
-            if(sww1==0){
+            if (sww1 == 0) {
                 PrintBoard(count);
                 //asking if the player wants to save the game
                 while (1) {
                     printf("do you want to save the game (1) or do you want to continue (2)? \n");
                     gets(CommandSave);
                     if (strcmp(CommandSave, "1") == 0) {
-                        SaveGameComputer(x1, y1, x2, y2, countwall1, countwall2, name, 40, count, countblock1, countblock2);
+                        SaveGameComputer(x1, y1, x2, y2, countwall1, countwall2, name, 40, count, countblock1,
+                                         countblock2);
                         break;
                     } else if (strcmp(CommandSave, "2") == 0) {
                         break;
@@ -355,7 +355,7 @@ void ComputerPlayer(int count, char name[], int LengthName, int countwall1, int 
         system("cls");
         PrintBoard(count);
         // Asking about the next move of computer
-        if(countblock2==0)
+        if (countblock2 == 0)
             sww2 = 1;
         else {
             sww2 = 0;
@@ -413,8 +413,8 @@ void ComputerPlayer(int count, char name[], int LengthName, int countwall1, int 
                 }
             }
             // opening a random gift or curse box
-            if(sww2==0 && x2 != 1){
-                CurseOrGift(x1,x2,y1,y2,count,nodes,&countblock2,&countwall2,&countwall1);
+            if (sww2 == 0 && x2 != 1) {
+                CurseOrGift(x1, x2, y1, y2, count, nodes, &countblock2, &countwall2, &countwall1);
             }
         }
         if (x2 == 1) {
@@ -428,14 +428,15 @@ void ComputerPlayer(int count, char name[], int LengthName, int countwall1, int 
 
 // continue playing in a condition that: second player is human, it is the turn of the first player to play
 void ContinueGameWithHumanFirst(int x1, int y1, int x2, int y2, int countwall1, int countwall2, char name1[],
-                                int LengthName1, char name2[], int LengthName2, int count,int countblock1, int countblock2) {
+                                int LengthName1, char name2[], int LengthName2, int count, int countblock1,
+                                int countblock2) {
     char enter[5];
     char commandstr[100];
     int xwall1, ywall1, xwall2, ywall2;
     char typewall1;
     char typewall2;
     char CommandSave[50];
-    int sww1,sww2;
+    int sww1, sww2;
 
     // show each player's piece
     printf("Dear %s ,your piece is : %c\n", name1, pieces1);
@@ -448,7 +449,7 @@ void ContinueGameWithHumanFirst(int x1, int y1, int x2, int y2, int countwall1, 
     //Updating the board
     PrintBoard(count);
     while (1) {
-        if(countblock1==0)
+        if (countblock1 == 0)
             sww1 = 1;
         else {
             sww1 = 0;
@@ -502,20 +503,21 @@ void ContinueGameWithHumanFirst(int x1, int y1, int x2, int y2, int countwall1, 
             else {
                 printf("incorrect input, please try Again !\n");
             }
-            if(sww1==0)
+            if (sww1 == 0)
                 system("cls");
             // opening a random gift or curse box
-            if(sww1==0 && x1 != 2 * count - 1){
-                CurseOrGift(x1,x2,y1,y2,count,nodes,&countblock1,&countwall1,&countwall2);
+            if (sww1 == 0 && x1 != 2 * count - 1) {
+                CurseOrGift(x1, x2, y1, y2, count, nodes, &countblock1, &countwall1, &countwall2);
             }
-            if(sww1==0){
+            if (sww1 == 0) {
                 PrintBoard(count);
                 //asking if the player wants to save the game
                 while (1) {
                     printf("do you want to save the game (1) or do you want to continue (2)? \n");
                     gets(CommandSave);
                     if (strcmp(CommandSave, "1") == 0) {
-                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 2, countblock1, countblock2);
+                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 2,
+                                      countblock1, countblock2);
                         break;
                     } else if (strcmp(CommandSave, "2") == 0) {
                         break;
@@ -531,7 +533,7 @@ void ContinueGameWithHumanFirst(int x1, int y1, int x2, int y2, int countwall1, 
         }
         system("cls");
         PrintBoard(count);
-        if(countblock2==0)
+        if (countblock2 == 0)
             sww2 = 1;
         else {
             sww2 = 0;
@@ -584,20 +586,21 @@ void ContinueGameWithHumanFirst(int x1, int y1, int x2, int y2, int countwall1, 
             else {
                 printf("incorrect input, please try Again !\n");
             }
-            if(sww2==0)
+            if (sww2 == 0)
                 system("cls");
             //opening a random curse or gift box
-            if(sww2==0 && x2 != 1){
-                CurseOrGift(x1,x2,y1,y2,count,nodes,&countblock2,&countwall2,&countwall1);
+            if (sww2 == 0 && x2 != 1) {
+                CurseOrGift(x1, x2, y1, y2, count, nodes, &countblock2, &countwall2, &countwall1);
             }
-            if(sww2==0){
+            if (sww2 == 0) {
                 PrintBoard(count);
                 //asking if the player wants to save the game
                 while (1) {
                     printf("do you want to save the game (1) or do you want to continue (2)? \n");
                     gets(CommandSave);
                     if (strcmp(CommandSave, "1") == 0) {
-                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 1, countblock1, countblock2);
+                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 1,
+                                      countblock1, countblock2);
                         break;
                     } else if (strcmp(CommandSave, "2") == 0) {
                         break;
@@ -618,7 +621,8 @@ void ContinueGameWithHumanFirst(int x1, int y1, int x2, int y2, int countwall1, 
 
 // continue playing in a condition that: second player is human, it is the turn of the second player to play
 void ContinueGameWithHumanSecond(int x1, int y1, int x2, int y2, int countwall1, int countwall2, char name1[],
-                                 int LengthName1, char name2[], int LengthName2, int count,int countblock1, int countblock2) {
+                                 int LengthName1, char name2[], int LengthName2, int count, int countblock1,
+                                 int countblock2) {
     char enter[5];
     char commandstr[100];
     int xwall1, ywall1, xwall2, ywall2;
@@ -636,7 +640,7 @@ void ContinueGameWithHumanSecond(int x1, int y1, int x2, int y2, int countwall1,
     //Updating the board
     PrintBoard(count);
     while (1) {
-        if(countblock2==0)
+        if (countblock2 == 0)
             sww2 = 1;
         else {
             sww2 = 0;
@@ -689,20 +693,21 @@ void ContinueGameWithHumanSecond(int x1, int y1, int x2, int y2, int countwall1,
             else {
                 printf("incorrect input, please try Again !\n");
             }
-            if(sww2==0)
+            if (sww2 == 0)
                 system("cls");
             //opening a random curse or gift box
-            if(sww2==0 && x2 != 1){
-                CurseOrGift(x1,x2,y1,y2,count,nodes,&countblock2,&countwall2,&countwall1);
+            if (sww2 == 0 && x2 != 1) {
+                CurseOrGift(x1, x2, y1, y2, count, nodes, &countblock2, &countwall2, &countwall1);
             }
-            if(sww2==0){
+            if (sww2 == 0) {
                 PrintBoard(count);
                 //asking if the player wants to save the game
                 while (1) {
                     printf("do you want to save the game (1) or do you want to continue (2)? \n");
                     gets(CommandSave);
                     if (strcmp(CommandSave, "1") == 0) {
-                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 1, countblock1, countblock2);
+                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 1,
+                                      countblock1, countblock2);
                         break;
                     } else if (strcmp(CommandSave, "2") == 0) {
                         break;
@@ -718,7 +723,7 @@ void ContinueGameWithHumanSecond(int x1, int y1, int x2, int y2, int countwall1,
         }
         system("cls");
         PrintBoard(count);
-        if(countblock1==0)
+        if (countblock1 == 0)
             sww1 = 1;
         else {
             sww1 = 0;
@@ -772,20 +777,21 @@ void ContinueGameWithHumanSecond(int x1, int y1, int x2, int y2, int countwall1,
             else {
                 printf("incorrect input, please try Again !\n");
             }
-            if(sww1==0)
+            if (sww1 == 0)
                 system("cls");
             //opening a random gift or curse box
-            if(sww1==0 && x1 != 2 * count - 1){
-                CurseOrGift(x1,x2,y1,y2,count,nodes,&countblock1,&countwall1,&countwall2);
+            if (sww1 == 0 && x1 != 2 * count - 1) {
+                CurseOrGift(x1, x2, y1, y2, count, nodes, &countblock1, &countwall1, &countwall2);
             }
-            if(sww1==0){
+            if (sww1 == 0) {
                 PrintBoard(count);
                 //asking if the player wants to save the game
                 while (1) {
                     printf("do you want to save the game (1) or do you want to continue (2)? \n");
                     gets(CommandSave);
                     if (strcmp(CommandSave, "1") == 0) {
-                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 2, countblock1, countblock2);
+                        SaveGameHuman(x1, y1, x2, y2, countwall1, countwall2, name1, 40, name2, 40, count, 2,
+                                      countblock1, countblock2);
                         break;
                     } else if (strcmp(CommandSave, "2") == 0) {
                         break;
@@ -807,7 +813,7 @@ void ContinueGameWithHumanSecond(int x1, int y1, int x2, int y2, int countwall1,
 // continue playing in a condition that: second player is computer
 void
 ContinueGameWithComputer(int x1, int y1, int x2, int y2, int countwall1, int countwall2, char name[], int LengthName,
-                         int count,int countblock1, int countblock2) {
+                         int count, int countblock1, int countblock2) {
     char enter[5];
     char commandstr[100];
     int xwall1, ywall1;
@@ -829,7 +835,7 @@ ContinueGameWithComputer(int x1, int y1, int x2, int y2, int countwall1, int cou
     while (goal > clock());
     while (1) {
         // Asking about the next move of computer
-        if(countblock2==0)
+        if (countblock2 == 0)
             sww2 = 1;
         else {
             sww2 = 0;
@@ -887,8 +893,8 @@ ContinueGameWithComputer(int x1, int y1, int x2, int y2, int countwall1, int cou
                 }
             }
             //opening a random gift or curse box
-            if(sww2==0 && x2 != 1){
-                CurseOrGift(x1,x2,y1,y2,count,nodes,&countblock2,&countwall2,&countwall1);
+            if (sww2 == 0 && x2 != 1) {
+                CurseOrGift(x1, x2, y1, y2, count, nodes, &countblock2, &countwall2, &countwall1);
             }
         }
         if (x2 == 1) {
@@ -897,7 +903,7 @@ ContinueGameWithComputer(int x1, int y1, int x2, int y2, int countwall1, int cou
         }
         system("cls");
         PrintBoard(count);
-        if(countblock1==0)
+        if (countblock1 == 0)
             sww1 = 1;
         else {
             sww1 = 0;
@@ -951,20 +957,21 @@ ContinueGameWithComputer(int x1, int y1, int x2, int y2, int countwall1, int cou
             else {
                 printf("incorrect input, please try Again !\n");
             }
-            if(sww1==0)
+            if (sww1 == 0)
                 system("cls");
             //opening a random gift or curse box
-            if(sww1==0 && x1 != 2 * count - 1){
-                CurseOrGift(x1,x2,y1,y2,count,nodes,&countblock1,&countwall1,&countwall2);
+            if (sww1 == 0 && x1 != 2 * count - 1) {
+                CurseOrGift(x1, x2, y1, y2, count, nodes, &countblock1, &countwall1, &countwall2);
             }
-            if(sww1==0){
+            if (sww1 == 0) {
                 PrintBoard(count);
                 //asking if the player wants to save the game
                 while (1) {
                     printf("do you want to save the game (1) or do you want to continue (2)? \n");
                     gets(CommandSave);
                     if (strcmp(CommandSave, "1") == 0) {
-                        SaveGameComputer(x1, y1, x2, y2, countwall1, countwall2, name, 40, count, countblock1, countblock2);
+                        SaveGameComputer(x1, y1, x2, y2, countwall1, countwall2, name, 40, count, countblock1,
+                                         countblock2);
                         break;
                     } else if (strcmp(CommandSave, "2") == 0) {
                         break;
@@ -984,7 +991,7 @@ ContinueGameWithComputer(int x1, int y1, int x2, int y2, int countwall1, int cou
 }
 
 
- int main() {
+int main() {
     //asking if user wants to play new game or continue the saved one
     while (1) {
         printf("Do you want to play a new game(1) or continue the saved one(2) ?\n");
@@ -1040,11 +1047,13 @@ ContinueGameWithComputer(int x1, int y1, int x2, int y2, int countwall1, int cou
                 fread(&PlayerType, sizeof(int), 1, inFile);
                 if (PlayerType == 1) {
                     //It means that second player was computer
-                    LoadGameConditionWithComputer(&x1, &y1, &x2, &y2, &countwall1, &countwall2, name, &count, &countblock1, &countblock2);
+                    LoadGameConditionWithComputer(&x1, &y1, &x2, &y2, &countwall1, &countwall2, name, &count,
+                                                  &countblock1, &countblock2);
                     if (x1 == 2 * count - 1 || x2 == 1) {
                         printf("This game has been finished,please choose another one!\n");
                     } else {
-                        ContinueGameWithComputer(x1, y1, x2, y2, countwall1, countwall2, name, 40, count, countblock1, countblock2);
+                        ContinueGameWithComputer(x1, y1, x2, y2, countwall1, countwall2, name, 40, count, countblock1,
+                                                 countblock2);
                         return 0;
                     }
                     // if PlayerType==2
