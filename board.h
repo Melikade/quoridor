@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <windows.h>
 char border = 219;
 char wall = 176;
 char pieces1 = 232;
@@ -30,6 +31,14 @@ char LoadCommand[10];
 char Query[50];
 int PlayerTurn;
 int PlayerType;
+//changing the color
+void setTextColor(int textColor, int backColor ) {
+ HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+ int colorAttribute = backColor << 4 | textColor;
+ SetConsoleTextAttribute(consoleHandle, colorAttribute);
+ }
+
+
 // making the board
 void screen(int count) {
     int i, j;
@@ -51,9 +60,32 @@ void screen(int count) {
 }
 void PrintBoard(int count) {
     int i, j;
+    setTextColor(15,0);
     for (i = 0; i < 2 * count + 1; i++) {
         for (j = 0; j < 5 * count + 2; j++) {
+            if (board [i][j]=='è'){
+               setTextColor(15,0);
+                printf("%c", board[i][j]);
+                setTextColor(15,0);
+            }
+            else if (board[i][j]=='é'){
+                setTextColor(15,0);
+                printf("%c", board[i][j]);
+                setTextColor(15,0);
+            }
+            else if (board[i][j]=='Û'){
+                setTextColor(3,0);
+                printf("%c", board[i][j]);
+                setTextColor(15,0);
+            }
+            else if (board[i][j]=='°'){
+                setTextColor(1,0);
+                printf("%c", board[i][j]);
+                setTextColor(15,0);
+            }
+            else {
             printf("%c", board[i][j]);
+            }
         }
         printf("\n");
     }
