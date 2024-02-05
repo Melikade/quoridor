@@ -18,8 +18,8 @@ void IncreaseCountWall(int *countwall) {
 void IncreaseAndDecreaseCountWall(int *countwall1, int *counwall2) {
     srand(time(NULL));
     if (rand() % 2 == 0) {
-        *countwall1++;
-        *counwall2--;
+        *countwall1 += 1;
+        *counwall2 -= 1;
         if (*counwall2 < 0)
             *counwall2 = 0;
     } else {
