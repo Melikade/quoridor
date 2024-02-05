@@ -5,6 +5,7 @@
 #include "curses.h"
 #include "gifts.h"
 #include "save and load.h"
+#include "Q&A.h"
 
 // curse or gift function
 void
@@ -1003,40 +1004,15 @@ int main() {
             gets(enter);
             screen(count);
             // asking if the player wants to play with a computer or a friend
-            while (1) {
-                printf("Would you like to play with the computer or a friend?\n");
-                gets(TypePlayer);
-                if (strcmp(TypePlayer, "friend") == 0) {
-                    // Asking the number of walls allowed for each player and the name of each player
-                    printf("How many walls are allowed for player1 ?\n");
-                    scanf("%d", &countwall1);
-                    printf("How many walls are allowed for player2 ?\n");
-                    scanf("%d", &countwall2);
-                    printf("What is the name of player1 ?\n");
-                    gets(enter);
-                    gets(name1);
-                    printf("What is the name of player2 ?\n");
-                    gets(name2);
-                    system("cls");
-                    // use a function to continue the game and announce the winner
-                    HumanPlayer(count, name1, 40, name2, 40, countwall1, countwall2);
-                    return 0;
-                } else if (strcmp(TypePlayer, "computer") == 0) {
-                    // asking the number of walls allowed for player and the computer
-                    printf("How many walls are allowed for human ?\n");
-                    scanf("%d", &countwall1);
-                    printf("How many walls are allowed for computer ?\n");
-                    scanf("%d", &countwall2);
-                    printf("What is the name of human ?\n");
-                    gets(enter);
-                    gets(name);
-                    system("cls");
-                    //use function to continue the game and announce the winner
-                    ComputerPlayer(count, name, 40, countwall1, countwall2);
-                    return 0;
-                } else {
-                    printf("incorrect input!\n");
-                }
+            if (QandA (TypePlayer, name1, name2, name, &countwall1, &countwall2)==1){
+                // continue the game and announce the winner when 2 players are HUMAN
+                HumanPlayer(count, name1, 40, name2, 40, countwall1, countwall2);
+                return 0;
+            }
+            else {
+                // continue the game and announce the winner when one player is COMPUTER
+                ComputerPlayer(count, name, 40, countwall1, countwall2);
+                return 0;
             }
 
         } else if (strcmp(LoadCommand, "2") == 0) {
