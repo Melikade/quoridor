@@ -60,8 +60,27 @@ void screen(int count) {
 }
 void PrintBoard(int count) {
     int i, j;
+    printf("      0");
+    for (j=1;j<count;j++){
+        if (j>9){
+            printf("   %d",j);
+        }
+        else {
+            printf("    %d",j);
+        }
+    }
+    printf("\n");
     setTextColor(15,0);
     for (i = 0; i < 2 * count + 1; i++) {
+        if ((i-1)/2>9&& i%2==1){
+            printf("%d ",(i-1)/2);
+        }
+        else if ((i-1)/2<10 && i%2==1) {
+            printf(" %d ",(i-1)/2);
+        }
+        else {
+            printf("   ");
+        }
         for (j = 0; j < 5 * count + 2; j++) {
             if (board [i][j]=='è'){
                setTextColor(15,0);
